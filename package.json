@@ -1,0 +1,30 @@
+{
+  "name": "siastats-swagger",
+  "version": "0.1.0",
+  "main": "index.mjs",
+  "author": "Junpei Kawamoto <kawamoto.junpei@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node --experimental-modules index.mjs",
+    "lint": "eslint --ext .mjs .",
+    "lint:fix": "eslint --fix --ext .mjs .",
+    "update": "run-s update:check update:install update:commit",
+    "update:check": "updates -u",
+    "update:install": "yarn install",
+    "update:commit": "git commit -m \"Update dependencies\" -- package.json yarn.lock"
+  },
+  "dependencies": {
+    "swagger-client": "^3.9.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.8",
+    "lint-staged": "^9.4.1",
+    "prettier": "^1.18.2",
+    "updates": "^9.0.0"
+  },
+  "private": true
+}
