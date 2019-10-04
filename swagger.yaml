@@ -1,0 +1,425 @@
+openapi: 3.0.0
+info:
+  title: siastats.info API
+  version: 2019-10-03
+servers:
+  - url: https://siastats.info:3500/navigator-api
+    description: Navigator (blockchain explorer) API
+  - url: https://siastats.info:3510/hosts-api
+    description: Hosts monitor API
+  - url: https://siastats.info/
+    description: Daily-updated databases, Real-Time databases, and Mining pools Luck and other stats
+tags:
+  - name: navigator
+  - name: host
+paths:
+  /hash/{hash}:
+    get:
+      tags:
+        - navigator
+      operationId: hash
+      summary: Returns the information about any hash (address, Tx, contract...) or block height on the blockchain
+      servers:
+        - url: https://siastats.info:3500/navigator-api
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          description: hash or block height
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HashResponse"
+        default:
+          description: Unexpected error
+          content:
+            text/plain:
+              schema:
+                type: string
+  /status:
+    get:
+      tags:
+        - navigator
+      operationId: status
+      summary: Global status and blockchain sync situation of SiaStats nodes
+      servers:
+        - url: https://siastats.info:3500/navigator-api
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Status"
+        default:
+          description: Unexpected error
+          content:
+            text/plain:
+              schema:
+                type: string
+  /host/{id}:
+    get:
+      tags:
+        - host
+      operationId: host
+      summary: Information and detailed SiaStats benchmarks about a host.
+      servers:
+        - url: https://siastats.info:3510/hosts-api
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: SiaStats host ID
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HostResponse"
+        default:
+          description: Unexpected error
+          content:
+            text/plain:
+              schema:
+                type: string
+  /allhosts:
+    post:
+      tags:
+        - host
+      operationId: allHosts
+      summary: Summary information and SiaStats final scores of all the hosts in the Sia network.
+      servers:
+        - url: https://siastats.info:3510/hosts-api
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AllHostsRequest"
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Host"
+        default:
+          description: Unexpected error
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    Status:
+      type: object
+      properties:
+        consensusblock:
+          type: integer
+        lastblock:
+          type: integer
+        heartbeat:
+          type: integer
+          format: int64
+        peers:
+          type: integer
+        version:
+          type: string
+    Transaction:
+      type: object
+      properties:
+        MasterHash:
+          type: string
+        ScChange:
+          type: number
+          format: double
+        SfChange:
+          type: number
+        Height:
+          type: integer
+        Timestamp:
+          type: string
+        TxType:
+          type: string
+    Benchmarks:
+      type: object
+      properties:
+        finalScore:
+          type: integer
+        latency:
+          type: integer
+        latencyScore:
+          type: integer
+        up:
+          type: integer
+          format: int64
+        upScore:
+          type: integer
+        down:
+          type: integer
+          format: int64
+        downScore:
+          type: integer
+        contractSuccess:
+          type: boolean
+        benchFailureRate:
+          type: integer
+        errorType:
+          type: string
+        errorDescription:
+          type: string
+        errorFull:
+          type: string
+    ComparisonMatrix:
+      type: object
+      properties:
+        stored:
+          type: integer
+        price:
+          type: number
+        collateral:
+          type: number
+        up:
+          type: number
+        down:
+          type: number
+        contractPrice:
+          type: number
+    Ticks:
+      type: object
+      properties:
+        total:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+        used:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+        storage:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+        bandwidth:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+        collateral:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+    PlotBand:
+      type: object
+      properties:
+        color:
+          type: string
+        from:
+          type: integer
+          format: int64
+        to:
+          type: integer
+          format: int64
+        label:
+          type: object
+          properties:
+            text:
+              type: string
+            rotation:
+              type: integer
+            textAlign:
+              type: string
+            align:
+              type: string
+            x:
+              type: integer
+            y:
+              type: integer
+    RegionalScore:
+      type: object
+      properties:
+        region:
+          type: string
+        latency:
+          type: integer
+        up:
+          type: string
+        down:
+          type: string
+        latencyScore:
+          type: integer
+        upScore:
+          type: integer
+        downScore:
+          type: integer
+        finalScore:
+          type: integer
+    Host:
+      type: object
+      properties:
+        Id:
+          type: number
+        Online:
+          type: boolean
+        Pubkey:
+          type: string
+        CurrentIp:
+          type: string
+        CountryCode:
+          type: string
+        TotalStorage:
+          type: number
+        AcceptingContracts:
+          type: boolean
+        Version:
+          type: string
+        UsedStorage:
+          type: number
+        Collateral:
+          type: integer
+        ContractPrice:
+          type: integer
+        StoragePrice:
+          type: integer
+        UploadPrice:
+          type: integer
+        DownloadPrice:
+          type: integer
+        Rank:
+          type: integer
+        FinalScore:
+          type: integer
+        ErrorType:
+          type: string
+    HashResponse:
+      type: object
+      properties:
+        Type:
+          type: string
+        MasterHash:
+          type: string
+        balanceSc:
+          type: number
+          format: double
+        receivedSc:
+          type: number
+          format: double
+        sentSc:
+          type: number
+          format: double
+        balanceSf:
+          type: number
+        TotalTxCount:
+          type: integer
+        firstSeen:
+          type: integer
+        last100Transactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Transaction"
+    AllHostsRequest:
+      type: object
+      properties:
+        network:
+          type: string
+        list:
+          type: string
+      required:
+        - network
+        - list
+    HostResponse:
+      type: object
+      properties:
+        requestStatus:
+          type: string
+        id:
+          type: integer
+        online:
+          type: boolean
+        rank:
+          type: integer
+        network:
+          type: string
+        pubkey:
+          type: string
+        ip:
+          type: string
+        lon:
+          type: number
+        lat:
+          type: number
+        isp:
+          type: string
+        countryCode:
+          type: string
+        countryName:
+          type: string
+        maxDuration:
+          type: number
+        totalStorage:
+          type: number
+        usedStorage:
+          type: number
+        collateral:
+          type: integer
+        storagePrice:
+          type: integer
+        uploadPrice:
+          type: integer
+        downloadPrice:
+          type: integer
+        minContractPrice:
+          type: number
+        firstSeenBlock:
+          type: integer
+        version:
+          type: string
+        sectorSize:
+          type: integer
+        windowSize:
+          type: integer
+        seenBy:
+          type: array
+          items:
+            type: string
+        benchmarks:
+          $ref: "#/components/schemas/Benchmarks"
+        comparisonMatrix:
+          $ref: "#/components/schemas/ComparisonMatrix"
+        ticks:
+          $ref: "#/components/schemas/Ticks"
+        plotBands:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlotBand"
+        regionalScores:
+          type: array
+          items:
+            $ref: "#/components/schemas/RegionalScore"
+        uptime1m:
+          type: number
+        uptime6m:
+          type: number
