@@ -1,3 +1,12 @@
+#
+# swagger.yaml
+#
+# Copyright (c) 2019 Junpei Kawamoto
+#
+# This software is released under the MIT License.
+#
+# http://opensource.org/licenses/mit-license.php
+#
 openapi: 3.0.0
 info:
   title: siastats.info API
@@ -384,13 +393,13 @@ components:
         usedStorage:
           type: number
         collateral:
-          type: integer
+          type: number
         storagePrice:
-          type: integer
+          type: number
         uploadPrice:
-          type: integer
+          type: number
         downloadPrice:
-          type: integer
+          type: number
         minContractPrice:
           type: number
         firstSeenBlock:
