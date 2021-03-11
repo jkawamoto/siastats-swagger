@@ -1,7 +1,7 @@
 /*
  * index.mjs
  *
- * Copyright (c) 2019 Junpei Kawamoto
+ * Copyright (c) 2019-2021 Junpei Kawamoto
  *
  * This software is released under the MIT License.
  *
@@ -24,7 +24,7 @@ async function main() {
 
   const hash = await client.apis.navigator.hash({
     hash:
-      "bde3467039a6d9a563224330ff7578a027205f1f2738e1e0daf134d8ded1878cf5870c41927d"
+      "bde3467039a6d9a563224330ff7578a027205f1f2738e1e0daf134d8ded1878cf5870c41927d",
   });
   console.log(hash.body);
 
@@ -39,4 +39,4 @@ async function main() {
   console.log(allHosts.body);
 }
 
-main().catch(e => console.error(e));
+main().catch((e) => console.error(e));
