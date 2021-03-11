@@ -1,7 +1,7 @@
 #
 # swagger.yaml
 #
-# Copyright (c) 2019 Junpei Kawamoto
+# Copyright (c) 2019-2021 Junpei Kawamoto
 #
 # This software is released under the MIT License.
 #
@@ -193,6 +193,15 @@ components:
           type: string
         errorFull:
           type: string
+        scoreChange_1day:
+          type: string
+          example: "-0.18"
+        scoreChange_7day:
+          type: string
+          example: "-0.54"
+        scoreChange_7day_smooth:
+          type: string
+          example: "-0.41"
     ComparisonMatrix:
       type: object
       properties:
