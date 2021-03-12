@@ -10,7 +10,7 @@
 openapi: 3.0.0
 info:
   title: siastats.info API
-  version: 2021-03-10
+  version: 2021-03-12
 servers:
   - url: https://siastats.info:3500/navigator-api
     description: Navigator (blockchain explorer) API
@@ -194,13 +194,22 @@ components:
         errorFull:
           type: string
         scoreChange_1day:
-          type: string
+          oneOf:
+            - type: string
+            - type: number
+              format: float
           example: "-0.18"
         scoreChange_7day:
-          type: string
+          oneOf:
+            - type: string
+            - type: number
+              format: float
           example: "-0.54"
         scoreChange_7day_smooth:
-          type: string
+          oneOf:
+            - type: string
+            - type: number
+              format: float
           example: "-0.41"
     ComparisonMatrix:
       type: object
