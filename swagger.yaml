@@ -10,7 +10,7 @@
 openapi: 3.0.0
 info:
   title: siastats.info API
-  version: 2021-03-12
+  version: 2021-07-22
 servers:
   - url: https://siastats.info:3500/navigator-api
     description: Navigator (blockchain explorer) API
@@ -20,7 +20,11 @@ servers:
     description: Daily-updated databases, Real-Time databases, and Mining pools Luck and other stats
 tags:
   - name: navigator
+    description: Navigator (blockchain explorer) API
   - name: host
+    description: Hosts monitor API
+  - name: network_status
+    description: Daily-updated databases, Real-Time databases, and Mining pools Luck and other stats
 paths:
   /hash/{hash}:
     get:
