@@ -52,6 +52,27 @@ paths:
             text/plain:
               schema:
                 type: string
+  /dbs/network_status.json:
+    get:
+      tags:
+        - network_status
+      operationId: network_status
+      summary: Global network status and market infos
+      servers:
+        - url: https://siastats.info
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NetworkStatus"
+        default:
+          description: Unexpected error
+          content:
+            text/plain:
+              schema:
+                type: string
   /status:
     get:
       tags:
@@ -134,6 +155,45 @@ paths:
                 type: string
 components:
   schemas:
+    NetworkStatus:
+      type: object
+      properties:
+        block_height:
+          type: integer
+        block_timestamp:
+          type: integer
+        hashrate:
+          type: number
+        difficulty:
+          type: number
+        coin_supply:
+          type: number
+        coin_price_USD:
+          type: number
+        market_cap_USD:
+          type: number
+        used_storage_TB:
+          type: number
+        network_capacity_TB:
+          type: number
+        online_hosts:
+          type: integer
+        countries_with_hosts:
+          type: integer
+        active_contracts:
+          type: integer
+        storage_proof_count:
+          type: integer
+        skynet_files:
+          type: integer
+        skynet_size:
+          type: number
+        skynet_portals_number:
+          type: integer
+        price_per_tb_sc:
+          type: number
+        price_per_tb_usd:
+          type: number
     Status:
       type: object
       properties:
