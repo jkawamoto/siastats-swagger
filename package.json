@@ -1,6 +1,6 @@
 {
   "name": "siastats-swagger",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "index.mjs",
   "author": "Junpei Kawamoto <kawamoto.junpei@gmail.com>",
   "license": "MIT",
