@@ -7,10 +7,14 @@
 #
 # http://opensource.org/licenses/mit-license.php
 #
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   title: siastats.info API
-  version: 2021-07-22
+  version: 2021-08-08
+  description: APIs to access the databases of [SiaStats.info](https://siastats.info/).
+externalDocs:
+  description: Find more info here
+  url: https://siastats.info/api
 servers:
   - url: https://siastats.info:3500/navigator-api
     description: Navigator (blockchain explorer) API
